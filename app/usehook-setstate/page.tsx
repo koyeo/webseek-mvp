@@ -12,11 +12,8 @@ export default function UseHookSetStatePage() {
 
 
     useEffect(() => {
-
-        // setLoading(true);
-
         void (async () => {
-
+            // setLoading(true);
             await sleep(3000)
             setData('hello world')
             setLoading(false);
