@@ -5,10 +5,15 @@ import React, {useEffect, useRef} from 'react';
 import {Chart} from '@antv/g2';
 
 
+type TrendItem = {
+    date: string,
+    count: number,
+}
+
 export default function AntvAreaPage() {
     return <div className='p-10'>
         <div className='h-200px'>
-            <AlertsTrend list={[
+            <Trend list={[
                 {date: '2025-11-25', count: 3},
                 {date: '2025-11-26', count: 8},
                 {date: '2025-11-27', count: 5},
@@ -21,15 +26,7 @@ export default function AntvAreaPage() {
     </div>
 }
 
-function AlertsTrend({list}: { list: { date: string, count: number }[] }) {
-    // const series = useMemo(() => {
-    //   return [
-    //     {
-    //       name: 'Alerts',
-    //       data: data.alertsTrend.map(item => ({ x: item.date, y: item.count })),
-    //     },
-    //   ];
-    // }, [data.alertsTrend]);
+function Trend({list}: { list: TrendItem[] }) {
 
     const ref = useRef<HTMLDivElement>(null);
 
@@ -69,7 +66,7 @@ function AlertsTrend({list}: { list: { date: string, count: number }[] }) {
                 tooltip: {
                     markerFill: '#f80000',
                     crosshairsStroke: '#1f4dff',
-                    crosshairsLineDash: [2, 2]
+                    crosshairsLineDash: [2, 2],
                 },
             },
             children: [
@@ -84,6 +81,7 @@ function AlertsTrend({list}: { list: { date: string, count: number }[] }) {
                         fill: 'linear-gradient(90deg, rgba(23, 25, 33, 0.12) 0%, rgba(23, 25, 33, 0) 100%)',
                         fillOpacity: 1,
                     },
+                    tooltip: false,
                 },
                 {
                     type: 'line',
@@ -96,6 +94,24 @@ function AlertsTrend({list}: { list: { date: string, count: number }[] }) {
                         stroke: 'rgba(23, 25, 33, 1)',
                         lineWidth: 2,
                     },
+                    interaction: {
+                        tooltip: {
+                            position: 'right',
+                            mount: 'body',
+                            render: (event, {items}) => {
+                                return `<div style="text-align: center;font-size: calc(12/16*1rem);color:rgba(23, 25, 33, 1);font-weight: 500;">${items[0].value}</div>`
+                            },
+                            css: {
+                                '.g2-tooltip': {
+                                    'min-width': '38px',
+                                    'box-shadow': '0px 4px 16px 0px rgba(1, 17, 37, 0.08)',
+                                    padding: '4.5px 8px',
+                                    'text-center': 'center',
+                                },
+                            }
+                        }
+                    }
+
                 },
             ],
         });
