@@ -64,6 +64,7 @@ function AlertsTrend({list}: { list: { date: string, count: number }[] }) {
                 },
             },
             insetLeft: 100,
+            insetRight: 50,
             interaction: {
                 tooltip: {
                     markerFill: '#f80000',
