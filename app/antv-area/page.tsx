@@ -38,9 +38,6 @@ function AlertsTrend({list}: { list: { date: string, count: number }[] }) {
             return;
         }
 
-
-        console.log(list);
-
         const chart = new Chart({
             container: ref.current,
             autoFit: true,
@@ -52,14 +49,26 @@ function AlertsTrend({list}: { list: { date: string, count: number }[] }) {
             axis: {
                 y: {
                     title: false,
-                    line: true,
-                    arrow: true,
-                    lineLineWidth: 30,
+                    tick: true,
+                    tickLength: 20,
+                    tickOpacity: 0,
+                    grid: true,
+                    gridOpacity: 3,
                 },
                 x: {
                     title: false,
                     line: true,
-                    labelAlign: 'horizontal',
+                    labelFontSize: 14,
+                    labelAutoRotate: false,
+                    labelAutoEllipsis: true,
+                },
+            },
+            insetLeft: 100,
+            interaction: {
+                tooltip: {
+                    markerFill: '#f80000',
+                    crosshairsStroke: '#1f4dff',
+                    crosshairsLineDash: [2, 2]
                 },
             },
             children: [
@@ -68,9 +77,11 @@ function AlertsTrend({list}: { list: { date: string, count: number }[] }) {
                     encode: {
                         x: 'date',
                         y: 'count',
+                        shape: 'smooth',
                     },
                     style: {
-                        fill: 'linear-gradient(180deg, rgba(23, 25, 33, 0.12) 0%, rgba(23, 25, 33, 0) 100%)',
+                        fill: 'linear-gradient(90deg, rgba(23, 25, 33, 0.12) 0%, rgba(23, 25, 33, 0) 100%)',
+                        fillOpacity: 1,
                     },
                 },
                 {
@@ -79,11 +90,10 @@ function AlertsTrend({list}: { list: { date: string, count: number }[] }) {
                         x: 'date',
                         y: 'count',
                         shape: 'smooth',
-                        size: 1,
                     },
                     style: {
                         stroke: 'rgba(23, 25, 33, 1)',
-                        lineWidth: 1.5,
+                        lineWidth: 2,
                     },
                 },
             ],
@@ -99,7 +109,7 @@ function AlertsTrend({list}: { list: { date: string, count: number }[] }) {
     return (
         <div className='border border-primary rounded-lg p-4 bg-primary_alt'>
             <div className='flex items-center h-[36px] justify-between mb-4'>
-                <div className='text-base text-primary font-medium leading-[24px]'>Alerts Trend</div>
+                <div className='text-base text-primary font-medium leading-[24px]'>Trend</div>
                 {/*<div>*/}
                 {/*  <Select options={[]} style={{ width: '120px' }} />*/}
                 {/*</div>*/}
